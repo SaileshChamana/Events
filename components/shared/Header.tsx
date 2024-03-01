@@ -9,10 +9,10 @@ import Navitems from './Navitems'
 import Mobilenav from './Mobilenav'
 const Header = () => {
   return (
-    <header className="w-full border-b">
-        <div className='wrapper flex items-center justify-between' >
-        <Link href="/" className='w-36' >
-          <Image src="/assets/images/logo.svg" width={128} height={38} alt="logo"/>
+    <header className="w-full border-b bg-white">
+        <div className='wrapper flex items-center justify-between h-[10vh]' >
+        <Link href="/" className='w-36'>
+          <Image src="/assets/images/connectUpLogo.jpeg" width={128} height={38} alt="logo"/>
         </Link>
         <SignedIn>
           <nav className='md:flex-between hidden w-full max-w-xs'>
