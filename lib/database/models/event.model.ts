@@ -13,8 +13,8 @@ export interface IEvent extends Document {
     location?: string;
     createdAt: Date;
     imageURL: string;
-    startDate: Date;
-    endDate: Date;
+    startDateTime: Date;
+    endDateTime: Date;
     url?: string;
     category: {_id: string, name: string};
     organizer: IUser;
@@ -27,8 +27,8 @@ const eventSchema = new Schema({
     location: {type: String},
     createdAt: {type: Date, default: Date.now},
     imageURL: {type: String, required: true},
-    startDate: {type: Date, required: true, default: Date.now},
-    endDate: {type: Date, required: true, default: Date.now},
+    startDateTime: {type: Date, required: true, default: Date.now},
+    endDateTime: {type: Date, required: true, default: Date.now},
     url: {type: String},
     category: {type: Schema.Types.ObjectId, ref: 'Category', required: true},
     organizer: {type: Schema.Types.ObjectId, ref: 'User', required: true},
