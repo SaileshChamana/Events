@@ -19,7 +19,7 @@ const Mobilenav = () => {
             className="cursor-pointer" width={24} height={24}></Image>
         </SheetTrigger>
         <SheetContent className="flex flex-col gap-6 bg-white md:hidden">
-            <Image src="/assets/images/logo.svg" alt="logo" width={128} height={38}></Image>
+            <Image src="/assets/images/connectUpLogo.jpeg" alt="logo" width={128} height={38}></Image>
             <Separator className="border border-gray-50" />
             <Navitems />
         </SheetContent>

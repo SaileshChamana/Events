@@ -18,7 +18,7 @@ import { eventFormSchema } from "@/lib/validator"
 import { eventDefaultValues } from "@/constants"
 import Dropdown from "./Dropdown"
 import { Textarea } from "@/components/ui/textarea"
-import { Fileuploader }from "./FileUploader"
+import { Fileuploader }from "./Fileuploader"
 import { useState } from "react"
 import Image from "next/image"
 import DatePicker from "react-datepicker";
@@ -306,6 +306,7 @@ type EventFormProps = {
    
     async function onSubmit(values: z.infer<typeof eventFormSchema>) {
       let uploadedImageUrl = values.imageUrl;
+      console.log({url: uploadedImageUrl})
   
       if(files.length > 0) {
         const uploadedImages = await startUpload(files)
@@ -318,10 +319,11 @@ type EventFormProps = {
       }
   
       if(type === 'Create') {
+        console.log({...values, imageUrl: uploadedImageUrl});
         try {
           const newEvent = await createEvent({
-            event: { ...values, imageUrl: uploadedImageUrl },
             userId,
+            event: { ...values, imageUrl: uploadedImageUrl },
             path: '/profile'
           })
   
