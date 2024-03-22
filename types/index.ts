@@ -43,8 +43,6 @@ export type CreateUserParams = {
       startDateTime: Date
       endDateTime: Date
       categoryId: string
-      price: string
-      isFree: boolean
       url: string
     }
     path: string

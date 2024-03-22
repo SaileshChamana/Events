@@ -19,7 +19,7 @@ const Header = () => {
             <Navitems />
           </nav>
         </SignedIn>
-        <div className='flex w-32 justify-end gap-3'> </div>
+        <div className='flex w-32 justify-end gap-3'> 
           <SignedIn>
             <UserButton afterSignOutUrl='/' />
             <Mobilenav />
@@ -31,6 +31,7 @@ const Header = () => {
               </Link>
             </Button>
           </SignedOut>
+          </div>
         </div>
     </header>
   )
