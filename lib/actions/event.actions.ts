@@ -15,6 +15,7 @@ import {
   GetAllEventsParams,
   GetEventsByUserParams,
   GetRelatedEventsByCategoryParams,
+  AddChatUserParams,
 } from '@/types'
 
 const getCategoryByName = async (name: string) => {
@@ -81,6 +82,26 @@ export async function updateEvent({ userId, event, path }: UpdateEventParams) {
     )
     revalidatePath(path)
 
+    return JSON.parse(JSON.stringify(updatedEvent))
+  } catch (error) {
+    handleError(error)
+  }
+}
+
+export async function addUser({ userId, eventId }: AddChatUserParams){
+  try {
+    await connectToDatabase()
+    console.log(eventId)
+    const eventToUpdate = await Event.findById(eventId)
+    if (!eventToUpdate || eventToUpdate.organizer.toHexString() === userId) {
+      throw new Error('Unauthorized or event not found')
+    }
+    const updatedEvent = await Event.findByIdAndUpdate(
+      eventId,
+      { $addToSet: { chatUsers: userId } },
+      { new: true }
+    )
+    // revalidatePath(path)
     return JSON.parse(JSON.stringify(updatedEvent))
   } catch (error) {
     handleError(error)
@@ -175,5 +196,39 @@ export async function getRelatedEventsByCategory({
   } catch (error) {
     console.log(error);
     handleError(error);
+  }
+}
+
+export async function getEventsBoughtByUser({ userId, limit = 6, page }: GetEventsByUserParams) {
+  try {
+    console.log("I am here")
+    await connectToDatabase()
+    console.log("I am here")
+
+    const user = await User.findById(userId).populate('events');
+    console.log("I am here")
+    if (!user) {
+      throw new Error('User not found');
+    }
+    console.log("I am here")
+
+    const conditions = { _id: { $in: user.events } };
+    const skipAmount = (page - 1) * limit
+    console.log("I am here")
+    const eventsQuery = Event.find(conditions)
+      .sort({ createdAt: 'desc' })
+      .skip(skipAmount)
+      .limit(limit)
+
+      console.log("I am here")
+
+    const events = await populateEvent(eventsQuery)
+    console.log("I am here")
+    const eventsCount = await Event.countDocuments(conditions)
+    console.log(events)
+
+    return { data: JSON.parse(JSON.stringify(events)), totalPages: Math.ceil(eventsCount / limit) }
+  } catch (error) {
+    handleError(error)
   }
 }

@@ -7,7 +7,7 @@ interface IUser {
 }
 
 export interface IEvent extends Document {
-    _id: String,
+    _id: string,
     title: string;
     description?: string;
     location?: string;
@@ -32,10 +32,11 @@ const eventSchema = new Schema({
     url: {type: String},
     category: {type: Schema.Types.ObjectId, ref: 'Category', required: true},
     organizer: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-    chatUsers: [{
+    chatUsers: {
+        type: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }], default: []}
 })
 
 const Event = models.Event || model('Event', eventSchema)

@@ -7,14 +7,16 @@ import { SignedIn } from '@clerk/nextjs'
 import { UserButton } from '@clerk/nextjs'
 import Navitems from './Navitems'
 import Mobilenav from './Mobilenav'
+import { SocketIndicator } from '../socket-indicator'
 const Header = () => {
   return (
     <header className="w-full border-b bg-white">
-        <div className='wrapper flex items-center justify-between h-[10vh]' >
+        <div className='wrapper flex items-center justify-between h-[10vh] overflow-hidden' >
         <Link href="/" className='w-36'>
-          <Image src="/assets/images/connectUpLogo.jpeg" width={128} height={38} alt="logo"/>
+            <Image src="/assets/images/connectUpLogo.jpeg" width={128} height={38} alt="logo"/>
         </Link>
         <SignedIn>
+        <SocketIndicator />
           <nav className='md:flex-between hidden w-full max-w-xs'>
             <Navitems />
           </nav>
